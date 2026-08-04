@@ -16,6 +16,7 @@ export const featuredLeaders: Leader[] = [
     name: "Farhiyo Abdulle",
     role: "Director of Domestic Affairs",
     bio: "Farhiyo is a board-certified OB/GYN at Allina Health, dedicated to giving back to communities in need across the globe. She brings extensive experience in prenatal care and surgery, and is recognized for exceptional clinical skills and patient care, including the Top Doctor Award.",
+    image: "/leadership/farhiyo-abdulle.png",
   },
 ];
 
@@ -83,6 +84,13 @@ export const directors: Leader[] = [
     bio: "Provides strategic leadership for health programs and partnerships that strengthen healthcare systems across Somalia, leveraging technology, innovation, and collaboration.",
     image: "/leadership/yonis-osman.png",
   },
+];
+
+export const homepageLeaders: Leader[] = [
+  featuredLeaders[0],
+  featuredLeaders[1],
+  boardMembers[0],
+  boardMembers[1],
 ];
 
 export const allLeaders: Leader[] = [

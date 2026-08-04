@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Header } from "@/components/Header";
+import { SiteLayout } from "@/components/SiteLayout";
+import { uncutSans } from "@/app/fonts";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "900"],
-});
 
 export const metadata: Metadata = {
   title: "Global Health Alliance | Building Resilient Healthcare System",
@@ -21,10 +15,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${uncutSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <Header />
-        {children}
+        <SiteLayout>{children}</SiteLayout>
       </body>
     </html>
   );

@@ -64,13 +64,13 @@
   --color-gha-warning: var(--gha-warning);
   --color-gha-error: var(--gha-error);
   --color-utility-bg: var(--utility-bg);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-uncut-sans);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), "Segoe UI", Arial, Helvetica, sans-serif;
+  font-family: var(--font-uncut-sans), "Segoe UI", Arial, Helvetica, sans-serif;
   font-size: var(--text-base);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -158,6 +158,30 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes leadershipMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.leadership-marquee {
+  animation: leadershipMarquee 45s linear infinite;
+  will-change: transform;
+}
+
+.leadership-marquee-wrap:hover .leadership-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leadership-marquee {
+    animation: none !important;
   }
 }
 

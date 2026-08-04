@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { HistoryImageCarousel } from "@/components/HistoryImageCarousel";
+import { HistoryScrollSection } from "@/components/HistoryScrollSection";
 
 export const metadata: Metadata = {
   title: "Our History | Global Health Alliance",
@@ -41,6 +41,12 @@ const statsBand = [
   { value: "2", label: "Doulas Trained" },
 ];
 
+const historyScrollStats = [
+  highlightStats[0],
+  highlightStats[1],
+  statsBand[2],
+];
+
 const localInitiatives = [
   "Providing culturally competent healthcare education to immigrant families",
   "Organizing free health screenings in underserved neighborhoods",
@@ -54,19 +60,88 @@ const bridgingEfforts = [
   "The relationships we've built with Minnesota hospitals have facilitated donations of vital medical equipment to clinics abroad",
 ];
 
-const localImpact = [
-  "Trained 2 doulas from diverse backgrounds",
-  "Established partnerships with 3 local clinics to improve healthcare access for immigrant communities",
-  "Planning state-wide apprenticeship program for community health workers",
-  "Organized annual health fairs reaching 1,000+ residents in underserved Minneapolis neighborhoods",
-];
+const impactStrengths = [
+  {
+    title: "Community health at home",
+    description:
+      "culturally competent education, free screenings, clinic partnerships, and mentoring for immigrant families in Minneapolis.",
+  },
+  {
+    title: "Workforce training",
+    description:
+      "doulas, community health workers, and 80+ professionals trained in essential newborn care and helping mothers survive.",
+  },
+  {
+    title: "Hospital partnerships abroad",
+    description:
+      "five hospitals in Somalia equipped with modern medical technology through sustained collaboration.",
+  },
+  {
+    title: "Bridging local and global",
+    description:
+      "Minnesota experience adapted for rural outreach, equipment donations, and culturally informed programs overseas.",
+  },
+] as const;
 
-const globalReach = [
-  "Equipped 5 hospitals in Somalia with modern medical technology",
-  "Trained 80+ healthcare professionals in essential newborn care & helping mothers survive",
-  "Established master trainers in helping mothers and babies survive across Somali communities",
-  "Reduced maternal mortality rates by implementing training modules in helping mothers and babies survive",
-];
+const impactGaps = [
+  {
+    title: "Preventable maternal mortality",
+    description:
+      "too many mothers and newborns still die where training, supplies, and emergency care remain out of reach.",
+  },
+  {
+    title: "Equipment and infrastructure gaps",
+    description:
+      "many clinics lack basic tools until partnerships bring technology, maintenance, and skilled operators.",
+  },
+  {
+    title: "Language and access barriers",
+    description:
+      "immigrant and non-English speaking families still face unequal pathways into quality local care.",
+  },
+  {
+    title: "Rural and remote reach",
+    description:
+      "the hardest-to-serve communities need sustained presence—not one-time interventions—to close lasting gaps.",
+  },
+] as const;
+
+function CheckSquareIcon() {
+  return (
+    <span
+      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center border border-foreground"
+      aria-hidden="true"
+    >
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path
+          d="M2.5 6l2.5 2.5L9.5 3.5"
+          stroke="currentColor"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
+function CrossSquareIcon() {
+  return (
+    <span
+      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center border border-foreground"
+      aria-hidden="true"
+    >
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path
+          d="M3.5 3.5l5 5M8.5 3.5l-5 5"
+          stroke="currentColor"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+        />
+      </svg>
+    </span>
+  );
+}
 
 const founderStories = [
   {
@@ -251,28 +326,7 @@ export default function HistoryPage() {
         </div>
       </section>
 
-      {/* History carousel + highlights */}
-      <section className="border-b border-gha-border bg-gha-surface">
-        <div className="mx-auto grid max-w-[1200px] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-          <HistoryImageCarousel slides={historyMoments} />
-
-          <div className="flex flex-col justify-center border-t border-gha-border px-8 py-12 lg:border-t-0 lg:border-l lg:px-12 lg:py-16">
-            {highlightStats.map((stat, index) => (
-              <div
-                key={stat.label}
-                className={`py-10 ${index > 0 ? "border-t border-gha-border" : ""}`}
-              >
-                <p className="text-5xl font-black tracking-tight text-gha-primary lg:text-6xl">
-                  {stat.value}
-                </p>
-                <p className="mt-3 text-lg font-normal text-foreground lg:text-base">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HistoryScrollSection images={historyMoments} stats={historyScrollStats} />
 
       <FounderStoriesMasonry />
 
@@ -399,43 +453,58 @@ export default function HistoryPage() {
         </div>
       </section>
 
-      {/* Impact detail — two columns */}
-      <section className="border-b border-gha-border bg-background py-20 lg:py-24">
-        <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-black tracking-tight sm:text-4xl">
-            Our <span className="text-gha-primary">Impact</span>
+      {/* Impact detail — KAÏDO-style two-column comparison */}
+      <section className="border-t border-gha-border bg-white py-16 lg:py-24">
+        <div className="mx-auto max-w-[1100px] px-6 lg:px-8">
+          <h2 className="mx-auto max-w-3xl text-center text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+            Where GHA excels.
+            <span className="mt-1 block">Where the need remains.</span>
           </h2>
-          <div className="mt-14 grid gap-12 lg:grid-cols-2">
-            <article>
-              <h3 className="text-xl font-black tracking-tight text-gha-primary">
-                Local Impact
+
+          <div className="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <h3 className="text-lg font-bold tracking-tight text-foreground">
+                Where GHA excels
               </h3>
-              <ul className="mt-6 space-y-4">
-                {localImpact.map((item) => (
+              <ul className="mt-6">
+                {impactStrengths.map((item) => (
                   <li
-                    key={item}
-                    className="border-b border-gha-border pb-4 text-[15px] leading-relaxed text-gha-muted last:border-b-0 lg:text-base"
+                    key={item.title}
+                    className="flex items-start gap-3 border-t border-gha-border py-5 first:border-t-0 first:pt-0 last:pb-0"
                   >
-                    {item}
+                    <CheckSquareIcon />
+                    <p className="text-[15px] leading-relaxed text-gha-muted">
+                      <span className="font-bold text-foreground">
+                        {item.title}&nbsp;:
+                      </span>{" "}
+                      {item.description}
+                    </p>
                   </li>
                 ))}
               </ul>
-            </article>
-            <article>
-              <h3 className="text-xl font-black tracking-tight text-gha-primary">
-                Global Reach
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold tracking-tight text-foreground">
+                Where the need remains, we tell you
               </h3>
-              <ul className="mt-6 space-y-4">
-                {globalReach.map((item) => (
+              <ul className="mt-6">
+                {impactGaps.map((item) => (
                   <li
-                    key={item}
-                    className="border-b border-gha-border pb-4 text-[15px] leading-relaxed text-gha-muted last:border-b-0 lg:text-base"
+                    key={item.title}
+                    className="flex items-start gap-3 border-t border-gha-border py-5 first:border-t-0 first:pt-0 last:pb-0"
                   >
-                    {item}
+                    <CrossSquareIcon />
+                    <p className="text-[15px] leading-relaxed text-gha-muted">
+                      <span className="font-bold text-foreground">
+                        {item.title}&nbsp;:
+                      </span>{" "}
+                      {item.description}
+                    </p>
                   </li>
                 ))}
               </ul>
-            </article>
+            </div>
           </div>
         </div>
       </section>

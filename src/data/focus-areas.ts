@@ -163,6 +163,13 @@ export const focusAreas: FocusArea[] = [
   },
 ];
 
+export const homepageFocusAreas = focusAreas.filter(
+  (area): area is FocusArea & { image: NonNullable<FocusArea["image"]> } =>
+    Boolean(area.image),
+);
+
+export const featuredHomepagePrograms = homepageFocusAreas.slice(0, 4);
+
 export function getFocusArea(slug: string): FocusArea | undefined {
   return focusAreas.find((area) => area.slug === slug);
 }

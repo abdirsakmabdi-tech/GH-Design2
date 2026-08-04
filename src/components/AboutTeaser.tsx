@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function AboutTeaser() {
   return (
-    <section className="border-b border-gha-border bg-white">
+    <section className="bg-white">
       <div className="mx-auto flex max-w-[900px] flex-col items-center px-6 py-16 text-center lg:px-8 lg:py-20">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           About Us

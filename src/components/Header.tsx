@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { GhaLogo } from "./GhaLogo";
 
 const utilityLinks = [
@@ -371,12 +372,41 @@ function MegaMenuPanel({
 }
 
 export function Header() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const searchInputId = useId();
   const activeItem = navItems.find((item) => item.id === openMenu) ?? null;
+  const isSolid =
+    !isHome ||
+    (hasMounted && isScrolled) ||
+    mobileOpen ||
+    openMenu !== null ||
+    searchOpen;
+
+  useEffect(() => {
+    setHasMounted(true);
+
+    function onScroll() {
+      setIsScrolled(window.scrollY > 32);
+    }
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pathname]);
+
+  useEffect(() => {
+    setIsScrolled(false);
+    setMobileOpen(false);
+    setOpenMenu(null);
+    setSearchOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     function onPointerDown(event: MouseEvent) {
@@ -415,9 +445,14 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-50 w-full bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+      className={`fixed top-0 z-50 w-full transition-[background-color,box-shadow] duration-300 ${
+        isSolid
+          ? "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+          : "bg-transparent shadow-none"
+      }`}
     >
       {/* Utility bar */}
+      {isSolid && (
       <div className="hidden border-b border-[#ececec] bg-[#f5f5f5] md:block">
         <div className="mx-auto flex h-9 max-w-[1200px] items-center justify-end gap-5 px-6 lg:px-8">
           {utilityLinks.map((link) => (
@@ -435,6 +470,7 @@ export function Header() {
               setSearchOpen((prev) => !prev);
               setOpenMenu(null);
             }}
+            suppressHydrationWarning
             className="flex h-7 w-7 items-center justify-center rounded-full bg-[#e8e8e8] text-[#4a4a4a] transition-colors hover:bg-[#dcdcdc] hover:text-gha-primary"
             aria-label={searchOpen ? "Close search" : "Open search"}
             aria-expanded={searchOpen}
@@ -444,6 +480,7 @@ export function Header() {
           </button>
         </div>
       </div>
+      )}
 
       {/* Search panel */}
       {searchOpen && (
@@ -464,10 +501,12 @@ export function Header() {
               type="search"
               placeholder="Search..."
               autoFocus
+              suppressHydrationWarning
               className="h-10 w-full rounded-md border border-[#d0d0d0] px-3 text-sm text-[#1a1a1a] outline-none ring-gha-primary placeholder:text-[#8a8a8a] focus:ring-2"
             />
             <button
               type="submit"
+              suppressHydrationWarning
               className="h-10 shrink-0 rounded-md bg-gha-primary px-4 text-sm font-semibold text-white transition-colors hover:bg-gha-primary-hover"
             >
               Search
@@ -478,7 +517,7 @@ export function Header() {
 
       {/* Main nav */}
       <div className="relative mx-auto flex h-[72px] max-w-[1200px] items-center justify-between gap-4 px-6 lg:px-8">
-        <GhaLogo />
+        <GhaLogo inverted={!isSolid} />
 
         <nav
           className="hidden h-full items-stretch gap-1 lg:flex xl:gap-2"
@@ -491,9 +530,13 @@ export function Header() {
                 <button
                   type="button"
                   className={`relative inline-flex items-center gap-1.5 px-2.5 text-[15px] font-semibold transition-colors xl:px-3 ${
-                    isOpen
-                      ? "text-[#1a1a1a]"
-                      : "text-[#1a1a1a] hover:text-gha-primary"
+                    isSolid
+                      ? isOpen
+                        ? "text-[#1a1a1a]"
+                        : "text-[#1a1a1a] hover:text-gha-primary"
+                      : isOpen
+                        ? "text-white"
+                        : "text-white hover:text-white/80"
                   }`}
                   aria-expanded={isOpen}
                   aria-haspopup="true"
@@ -513,7 +556,9 @@ export function Header() {
                   />
                   {isOpen && (
                     <span
-                      className="absolute inset-x-2 bottom-0 h-[3px] bg-gha-primary"
+                      className={`absolute inset-x-2 bottom-0 h-[3px] ${
+                        isSolid ? "bg-gha-primary" : "bg-white"
+                      }`}
                       aria-hidden="true"
                     />
                   )}
@@ -567,7 +612,9 @@ export function Header() {
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center text-[#1a1a1a] lg:hidden"
+            className={`inline-flex h-10 w-10 items-center justify-center lg:hidden ${
+              isSolid ? "text-[#1a1a1a]" : "text-white"
+            }`}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => {

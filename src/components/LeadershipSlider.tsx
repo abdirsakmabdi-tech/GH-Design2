@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useRef } from "react";
+import { useEffect, useState } from "react";
 import { allLeaders, type Leader } from "@/data/leadership";
 
 function LeaderInitials({ name }: { name: string }) {
@@ -17,7 +17,7 @@ function LeaderInitials({ name }: { name: string }) {
 
   return (
     <div
-      className="flex h-full w-full items-center justify-center bg-gradient-to-br from-gha-primary to-gha-secondary text-3xl font-bold text-white"
+      className="flex h-full w-full items-center justify-center bg-gha-border/40 text-3xl font-bold text-gha-muted"
       aria-hidden="true"
     >
       {initials}
@@ -25,131 +25,124 @@ function LeaderInitials({ name }: { name: string }) {
   );
 }
 
-function LeaderSlide({ person }: { person: Leader }) {
+function LeaderCard({ person }: { person: Leader }) {
   return (
-    <article className="w-[min(82vw,280px)] shrink-0 snap-start sm:w-[300px]">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[1.25rem] bg-utility-bg">
+    <article className="flex h-full w-[260px] shrink-0 flex-col overflow-hidden rounded-xl bg-utility-bg sm:w-[280px]">
+      <div className="relative aspect-[9/8] w-full overflow-hidden bg-gha-border/30">
         {person.image ? (
           <Image
             src={person.image}
             alt={person.name}
             fill
-            className="object-cover object-top"
-            sizes="(max-width: 640px) 82vw, 300px"
+            className="object-cover object-[center_20%]"
+            sizes="280px"
           />
         ) : (
           <LeaderInitials name={person.name} />
         )}
       </div>
-      <h3 className="mt-5 text-xl font-bold tracking-tight text-foreground">
-        {person.name}
-      </h3>
-      <p className="mt-1 text-sm font-semibold tracking-wide text-gha-primary uppercase">
-        {person.role}
-      </p>
+
+      <div className="p-5 lg:p-6">
+        <p className="text-base font-bold text-foreground">{person.name}</p>
+        <p className="mt-0.5 text-xs leading-snug text-gha-muted">{person.role}</p>
+      </div>
     </article>
   );
 }
 
-function NavButton({
-  direction,
-  onClick,
-  className = "",
-}: {
-  direction: "prev" | "next";
-  onClick: () => void;
-  className?: string;
-}) {
+function LeaderTrack({ leaders, ariaHidden }: { leaders: Leader[]; ariaHidden?: boolean }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-gha-secondary hover:text-black ${className}`}
-      aria-label={direction === "prev" ? "Previous leader" : "Next leader"}
+    <div
+      className="flex shrink-0 gap-4 pr-4 lg:gap-5 lg:pr-5"
+      aria-hidden={ariaHidden || undefined}
     >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path
-          d={direction === "prev" ? "M10 3L5 8l5 5" : "M6 3l5 5-5 5"}
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+      {leaders.map((person, index) => (
+        <LeaderCard
+          key={`${person.name}-${ariaHidden ? "dup" : "main"}-${index}`}
+          person={person}
         />
-      </svg>
-    </button>
+      ))}
+    </div>
   );
 }
 
 export function LeadershipSlider() {
-  const trackRef = useRef<HTMLDivElement>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  const scrollByCard = useCallback((direction: "prev" | "next") => {
-    const track = trackRef.current;
-    if (!track) return;
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
 
-    const firstCard = track.querySelector<HTMLElement>("article");
-    const gap = 24;
-    const distance = (firstCard?.offsetWidth ?? 300) + gap;
-
-    track.scrollBy({
-      left: direction === "next" ? distance : -distance,
-      behavior: "smooth",
-    });
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+    return () => mediaQuery.removeEventListener("change", updatePreference);
   }, []);
 
   return (
     <section
-      className="border-t border-gha-border bg-background py-16 lg:py-20"
+      className="bg-background py-16 lg:py-20"
       aria-labelledby="leadership-heading"
     >
       <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="text-sm font-medium text-gha-muted">Who we are</p>
+          <div className="max-w-2xl">
+            <p className="text-sm font-medium tracking-[0.08em] text-gha-muted uppercase">
+              Who we are
+            </p>
             <h2
               id="leadership-heading"
-              className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+              className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.12]"
             >
               Our Leadership
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex border border-gha-border bg-white">
-              <NavButton direction="prev" onClick={() => scrollByCard("prev")} />
-              <NavButton
-                direction="next"
-                onClick={() => scrollByCard("next")}
-                className="border-l border-gha-border"
-              />
-            </div>
-            <Link
-              href="/who-we-are/leadership"
-              className="hidden text-sm font-bold text-gha-primary transition-colors hover:text-gha-primary-hover sm:inline-flex"
-            >
-              View all
-            </Link>
-          </div>
-        </div>
-
-        <div
-          ref={trackRef}
-          className="mt-10 flex gap-6 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory"
-        >
-          {allLeaders.map((person) => (
-            <LeaderSlide key={person.name} person={person} />
-          ))}
-        </div>
-
-        <p className="mt-8 sm:hidden">
           <Link
             href="/who-we-are/leadership"
-            className="text-sm font-bold text-gha-primary transition-colors hover:text-gha-primary-hover"
+            className="ml-auto inline-flex shrink-0 items-center gap-5 rounded-xl border border-gha-border bg-white px-5 py-3.5 text-foreground transition-colors hover:border-gha-primary hover:bg-gha-primary hover:text-white active:border-gha-primary-hover active:bg-gha-primary-hover sm:gap-6 sm:px-6 sm:py-4"
           >
-            View all leadership
+            <span className="type-button tracking-[0.14em]">
+              View all leadership
+            </span>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              className="shrink-0"
+              aria-hidden="true"
+            >
+              <path
+                d="M4.5 13.5L13.5 4.5M13.5 4.5H6.75M13.5 4.5V11.25"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </Link>
-        </p>
+        </div>
       </div>
+
+      {prefersReducedMotion ? (
+        <div className="mx-auto mt-10 grid max-w-[1200px] grid-cols-1 gap-4 px-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4 lg:gap-5 lg:px-8">
+          {allLeaders.slice(0, 4).map((person) => (
+            <LeaderCard key={person.name} person={person} />
+          ))}
+        </div>
+      ) : (
+        <div
+          className="leadership-marquee-wrap relative mt-10 overflow-hidden lg:mt-12"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Leadership team slider"
+        >
+          <div className="leadership-marquee flex w-max">
+            <LeaderTrack leaders={allLeaders} />
+            <LeaderTrack leaders={allLeaders} ariaHidden />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

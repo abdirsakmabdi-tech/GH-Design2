@@ -213,7 +213,7 @@ export default function DesignSystemPage() {
         <Section title="Typography">
           <p className="mb-4 text-sm text-gha-muted">
             Typeface:{" "}
-            <span className="font-semibold text-foreground">Inter</span> —
+            <span className="font-semibold text-foreground">Uncut Sans</span> —
             inspired by the clear hierarchy on{" "}
             <a
               href="https://hias.org/"

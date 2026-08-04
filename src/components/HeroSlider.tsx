@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
 type Slide = {
@@ -111,32 +112,6 @@ const slides: Slide[] = [
 
 const AUTO_MS = 6500;
 
-function QuoteIcon() {
-  return (
-    <svg
-      width="44"
-      height="44"
-      viewBox="0 0 44 44"
-      fill="none"
-      aria-hidden="true"
-      className="text-white"
-    >
-      <rect
-        x="1"
-        y="1"
-        width="42"
-        height="42"
-        stroke="currentColor"
-        strokeWidth="1.25"
-      />
-      <path
-        d="M14.5 28.5c0-5.2 2.4-8.6 6.2-10.4l-1.1-2.6C14.8 17.4 11 21.6 11 28.2v.8h7.2v-6.8H14.5v6.3zm12.2 0c0-5.2 2.4-8.6 6.2-10.4l-1.1-2.6c-4.8 1.9-8.6 6.1-8.6 12.7v.8h7.2v-6.8h-3.7v6.3z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
 function DoubleChevronDown({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -189,7 +164,7 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative h-[min(92vh,820px)] min-h-[520px] w-full overflow-hidden bg-[#1a1a1a]"
+      className="relative h-[100dvh] min-h-[100dvh] w-full overflow-hidden bg-[#1a1a1a]"
       aria-roledescription="carousel"
       aria-label="Featured quotes"
       onMouseEnter={() => setPaused(true)}
@@ -198,20 +173,26 @@ export function HeroSlider() {
       {slides.map((item, i) => (
         <div
           key={item.id}
-          className={`absolute inset-0 bg-cover transition-opacity duration-700 ease-out ${
+          className={`absolute inset-0 transition-opacity duration-700 ease-out ${
             i === index ? "opacity-100" : "opacity-0"
           }`}
-          style={{
-            backgroundImage: `url('${item.image}')`,
-            backgroundPosition: item.imagePosition ?? "center center",
-          }}
           aria-hidden={i !== index}
-        />
+        >
+          <Image
+            src={item.image}
+            alt=""
+            fill
+            priority={i === 0}
+            className="object-cover"
+            style={{ objectPosition: item.imagePosition ?? "center center" }}
+            sizes="100vw"
+          />
+        </div>
       ))}
 
-      {/* Right-side dark gradient like reference */}
+      {/* Left-side dark gradient for readable overlay text */}
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-l from-black/80 via-black/55 to-transparent"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-transparent"
         aria-hidden="true"
       />
       <div
@@ -219,31 +200,20 @@ export function HeroSlider() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 flex h-full">
-        <div className="ml-auto flex h-full w-full max-w-[640px] flex-col justify-center px-6 py-16 sm:px-10 lg:mr-[8%] lg:max-w-[560px] lg:px-0 xl:mr-[10%]">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1200px] items-end px-6 pb-[8vh] lg:px-8 lg:pb-[10vh]">
+        <div className="flex w-full min-w-0 max-w-[560px] flex-col lg:max-w-[500px]">
           <div
             key={slide.id}
             className="animate-[heroFade_0.6s_ease-out]"
           >
-            <QuoteIcon />
-
-            <blockquote className="mt-6">
-              <p className="text-[1.65rem] font-bold leading-[1.25] tracking-tight text-white sm:text-[2rem] lg:text-[2.15rem] lg:leading-[1.28]">
+            <blockquote>
+              <p className="text-[1.45rem] font-bold leading-[1.28] tracking-tight text-white sm:text-[1.75rem] lg:text-[1.9rem] lg:leading-[1.3]">
                 {slide.quote}
               </p>
-              <footer className="mt-8">
-                <cite className="not-italic text-[12px] font-semibold tracking-[0.08em] text-white uppercase sm:text-[13px]">
-                  {slide.attribution}
-                </cite>
-                <span
-                  className="mt-3 block h-px w-full max-w-[280px] bg-white/90"
-                  aria-hidden="true"
-                />
-              </footer>
             </blockquote>
           </div>
 
-          <div className="mt-auto flex flex-col items-end gap-5 pt-12">
+          <div className="mt-12 flex flex-col items-start gap-5 lg:mt-14">
             <button
               type="button"
               onClick={() => {
@@ -257,8 +227,8 @@ export function HeroSlider() {
               <DoubleChevronDown />
             </button>
 
-            <div className="w-full">
-              <div className="mb-3 h-px w-full bg-white/70" aria-hidden="true" />
+            <div className="w-full max-w-[420px]">
+              <div className="mb-4 h-px w-full bg-white/70" aria-hidden="true" />
               <div
                 className="flex items-center gap-1.5"
                 role="tablist"
