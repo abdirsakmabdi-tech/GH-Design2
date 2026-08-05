@@ -1,6 +1,6 @@
 const impactStats = [
   {
-    value: "3+",
+    value: "2",
     description:
       "countries where GHA has active healthcare improvement projects",
   },

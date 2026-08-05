@@ -139,18 +139,14 @@ const navItems: NavItem[] = [
             href: "/gha-in-action/countries",
           },
           {
-            label: "Global Initiatives",
-            href: "/gha-in-action/global-initiatives",
+            label: "United States",
+            href: "/gha-in-action/usa",
           },
         ],
       },
       {
         heading: "Local",
         links: [
-          {
-            label: "United States",
-            href: "/gha-in-action/usa",
-          },
           {
             label: "Local Led Initiatives in Somalia",
             href: "/gha-in-action/somalia",
