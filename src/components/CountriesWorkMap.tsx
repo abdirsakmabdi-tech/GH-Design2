@@ -15,9 +15,46 @@ const mapMeta = {
     mask: "/gha-in-action/somalia-map-mask.png",
     aspect: "aspect-[576/385]",
     maxWidth: "max-w-[280px]",
-    labelSize: "clamp(0.95rem, 2vw, 1.2rem)",
+    labelSize: "clamp(0.95rem, 2.2vw, 1.15rem)",
   },
 } as const;
+
+/** Label drawn along Somalia’s N→S spine so it stays inside the silhouette */
+function SomaliaMapLabel() {
+  return (
+    <svg
+      viewBox="0 0 576 385"
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      aria-hidden="true"
+    >
+      <defs>
+        {/* Spine through opaque mask centroids (N→S through the Horn body) */}
+        <path
+          id="somalia-label-path"
+          d="M 440 70 C 450 120, 458 160, 430 210 C 395 255, 350 290, 310 330"
+        />
+      </defs>
+      <text
+        fill="#0d0d0d"
+        style={{
+          fontFamily: "Georgia, 'Times New Roman', serif",
+          fontSize: "26px",
+          fontWeight: 600,
+          letterSpacing: "0.14em",
+        }}
+      >
+        <textPath
+          href="#somalia-label-path"
+          startOffset="4%"
+          method="align"
+          spacing="auto"
+        >
+          Somalia
+        </textPath>
+      </text>
+    </svg>
+  );
+}
 
 /**
  * Country silhouettes — yellow on hover. Dedicated cards live below in CountriesPage.
@@ -68,15 +105,21 @@ export function CountriesWorkMap() {
                   }}
                   aria-hidden="true"
                 />
-                <p
-                  className="pointer-events-none absolute inset-0 flex items-center justify-center px-3 text-center font-semibold tracking-tight text-[#0d0d0d]"
-                  style={{
-                    fontFamily: "Georgia, 'Times New Roman', serif",
-                    fontSize: meta.labelSize,
-                  }}
-                >
-                  {country.name}
-                </p>
+
+                {id === "somalia" ? (
+                  <SomaliaMapLabel />
+                ) : (
+                  <p
+                    className="pointer-events-none absolute inset-0 flex items-start justify-center pt-[28%] text-center font-semibold tracking-tight text-[#0d0d0d] sm:pt-[30%]"
+                    style={{
+                      fontFamily: "Georgia, 'Times New Roman', serif",
+                      fontSize: meta.labelSize,
+                      transform: "translateX(-6%)",
+                    }}
+                  >
+                    {country.name}
+                  </p>
+                )}
               </div>
             </Link>
           );

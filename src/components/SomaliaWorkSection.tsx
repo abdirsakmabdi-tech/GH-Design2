@@ -9,13 +9,6 @@ import {
   somaliaVideos,
 } from "@/components/UsaWatchSection";
 
-const somaliaHeroStats = [
-  { label: "Focus region", value: "Galkacyo" },
-  { label: "Primary work", value: "Hospital support" },
-  { label: "Communities served", value: "Local families" },
-  { label: "Signature focus", value: "Newborn care" },
-] as const;
-
 export function SomaliaWorkSection() {
   return (
     <section
@@ -56,24 +49,13 @@ export function SomaliaWorkSection() {
 
             <div className="relative z-10 ml-auto w-full max-w-[340px] lg:max-w-[380px]">
               <p className="text-[12px] font-medium tracking-wide text-[#f4efe6]/75">
-                Key partnership
+                Address
               </p>
               <p className="mt-1 text-[1.85rem] font-bold leading-tight tracking-tight text-[#e8b84a] sm:text-[2.15rem]">
-                Galkacyo General
+                Garowe, Puntland
+                <br />
+                Somalia
               </p>
-
-              <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-7">
-                {somaliaHeroStats.map((stat) => (
-                  <div key={stat.label}>
-                    <dt className="text-[11px] leading-snug font-medium tracking-wide text-[#f4efe6]/7">
-                      {stat.label}
-                    </dt>
-                    <dd className="mt-1 text-[1.35rem] font-bold leading-tight tracking-tight text-[#e8b84a] sm:text-[1.5rem]">
-                      {stat.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
             </div>
           </div>
         </div>
@@ -263,25 +245,6 @@ export function SomaliaWorkSection() {
               Countries we
               <br className="hidden sm:block" /> work in
             </h3>
-            <Link
-              href="/gha-in-action/countries"
-              className="mt-6 inline-flex items-center gap-2.5 text-sm text-white/85 transition-colors hover:text-white"
-            >
-              <span
-                className="flex h-6 w-6 items-center justify-center rounded-full bg-[#e8b84a] text-[#1e345f]"
-                aria-hidden="true"
-              >
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                  <path
-                    d="M2 2l6 6M8 2L2 8"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-              Back to overview
-            </Link>
           </div>
 
           <ul className="flex flex-col gap-4 sm:gap-5">
