@@ -59,7 +59,7 @@ export default function StrategicPlanPage() {
           <p className="text-sm font-semibold tracking-[0.14em] text-gha-secondary uppercase">
             Who We Are
           </p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-[3.25rem] lg:leading-[1.1]">
+          <h1 className="type-h1 mt-3 max-w-3xl text-balance">
             Strategic Plan
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-gha-muted">
@@ -113,7 +113,7 @@ export default function StrategicPlanPage() {
             <p className="text-xs font-semibold tracking-[0.14em] text-white/70 uppercase">
               Strategic Direction
             </p>
-            <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="type-h2 mt-4 max-w-3xl">
               A practical roadmap for donor partnerships, institutional growth,
               and long-term health impact.
             </h2>
@@ -133,7 +133,7 @@ export default function StrategicPlanPage() {
             <p className="text-xs font-semibold tracking-[0.14em] text-gha-secondary uppercase">
               Priorities
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h2 className="type-h2 mt-3 text-foreground">
               Strategic Priorities
             </h2>
             <p className="mt-4 text-base leading-relaxed text-gha-muted lg:text-lg">

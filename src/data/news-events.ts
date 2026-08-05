@@ -18,6 +18,8 @@ export type NewsEventItem = {
   cardType: "image" | "detail";
   image?: string;
   imageAlt?: string;
+  /** Location label for featured news cards (e.g. Minnesota, Somalia) */
+  location?: string;
   /** Dedicated news page fields */
   pressType?: NewsPressType;
   source?: string;
@@ -37,6 +39,7 @@ export const newsItems: NewsEventItem[] = [
     cardType: "image",
     image: "/focus-areas/newborn-care.png",
     imageAlt: "Mothers with newborns at a community health gathering",
+    location: "Kenya",
     pressType: "Update",
     source: "Global Health Alliance",
     whyItMatters:
@@ -54,6 +57,7 @@ export const newsItems: NewsEventItem[] = [
     cardType: "detail",
     image: "/focus-areas/digital-health.png",
     imageAlt: "Community health workers using a digital tablet",
+    location: "Somalia",
     pressType: "Partnership",
     source: "DynaMed & Dynamic Health",
     whyItMatters:
@@ -71,6 +75,7 @@ export const newsItems: NewsEventItem[] = [
     cardType: "image",
     image: "/focus-areas/training.png",
     imageAlt: "Healthcare training graduates with Global Health Alliance",
+    location: "Global",
     pressType: "Feature",
     source: "Global Health Alliance",
     whyItMatters:
@@ -91,6 +96,7 @@ export const eventItems: NewsEventItem[] = [
     cardType: "image",
     image: "/focus-areas/community-education.png",
     imageAlt: "Health worker distributing supplies in a community clinic",
+    location: "Minnesota",
     pressType: "Event",
     source: "GHA Minneapolis",
     whyItMatters:
@@ -108,6 +114,7 @@ export const eventItems: NewsEventItem[] = [
     cardType: "detail",
     image: "/who-we-are/history/uofm-training.png",
     imageAlt: "GHA training participants at the University of Minnesota",
+    location: "Minnesota",
     pressType: "Event",
     source: "University of Minnesota",
     whyItMatters:
@@ -125,6 +132,7 @@ export const eventItems: NewsEventItem[] = [
     cardType: "image",
     image: "/who-we-are/history/galkacyo-hospital.png",
     imageAlt: "Medical equipment installation at Galkacyo General Hospital",
+    location: "Somalia",
     pressType: "Press",
     source: "Galkacyo General Hospital",
     whyItMatters:

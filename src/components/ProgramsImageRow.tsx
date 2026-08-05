@@ -78,13 +78,8 @@ function MobileProgramCard({
         alt={area.image.alt}
         fill
         className="object-cover"
-        sizes="100vw"
+        sizes="(max-width: 1023px) calc(100vw - 3rem), 100vw"
         priority
-      />
-
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/15"
-        aria-hidden="true"
       />
 
       <span
@@ -243,7 +238,7 @@ export function ProgramsImageRow() {
             </p>
             <h2
               id="programs-image-row-heading"
-              className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.12]"
+              className="type-h2 mt-2 text-foreground"
             >
               Our programs
             </h2>

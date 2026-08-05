@@ -108,7 +108,7 @@ export function HistoryScrollSection({
         <div className="relative z-10 mx-auto flex h-full max-w-[1200px] flex-col justify-end px-6 pb-16 pt-28 sm:pb-20 lg:flex-row lg:items-end lg:justify-between lg:gap-16 lg:px-8 lg:pb-24 lg:pt-32">
           <h2
             id="history-impact-heading"
-            className="max-w-xl text-3xl font-bold tracking-tight text-balance text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.55)] sm:text-4xl lg:text-[2.75rem] lg:leading-[1.12]"
+            className="type-h2 max-w-xl text-balance text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.55)]"
           >
             {headline}
           </h2>
@@ -121,7 +121,7 @@ export function HistoryScrollSection({
                     <p className="text-[11px] font-medium tracking-[0.06em] text-white/90 sm:text-xs [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
                       {stat.label}
                     </p>
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.5)] sm:text-4xl lg:text-[2.75rem]">
+                    <p className="type-h2 mt-2 text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]">
                       {stat.value}
                     </p>
                   </div>

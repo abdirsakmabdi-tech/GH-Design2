@@ -24,7 +24,7 @@ export default function WhatWeDoPage() {
           <p className="text-sm font-semibold tracking-[0.14em] text-gha-secondary uppercase">
             What We Do
           </p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-[3.25rem] lg:leading-[1.1]">
+          <h1 className="type-h1 mt-3 text-balance">
             Focus Areas
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-gha-muted">

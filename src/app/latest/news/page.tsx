@@ -167,7 +167,7 @@ export default function NewsPage() {
           <p className="text-sm font-semibold tracking-[0.14em] text-gha-secondary uppercase">
             News &amp; Press
           </p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-[3.75rem] lg:leading-[1.05]">
+          <h1 className="type-h1 mt-4 max-w-3xl text-balance">
             In the field.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-gha-muted">

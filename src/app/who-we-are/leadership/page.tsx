@@ -114,7 +114,7 @@ export default function LeadershipPage() {
           <p className="gha-rise text-sm font-semibold tracking-[0.14em] text-gha-secondary uppercase">
             Who We Are
           </p>
-          <h1 className="gha-rise gha-rise-delay-1 mt-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-[3.25rem] lg:leading-[1.1]">
+          <h1 className="gha-rise gha-rise-delay-1 type-h1 mt-3">
             Our Leadership
           </h1>
           <p className="gha-rise gha-rise-delay-2 mt-5 max-w-2xl text-lg leading-relaxed text-gha-muted">

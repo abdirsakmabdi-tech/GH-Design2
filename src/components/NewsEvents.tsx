@@ -1,122 +1,230 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { newsItems, type NewsEventItem } from "@/data/news-events";
+import { useEffect, useRef, useState } from "react";
+import {
+  formatNewsDisplayDate,
+  newsPageItems,
+  type NewsEventItem,
+} from "@/data/news-events";
 
-const MONTH_LABELS = [
-  "JAN",
-  "FEB",
-  "MAR",
-  "APR",
-  "MAY",
-  "JUN",
-  "JUL",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC",
-] as const;
-
-function formatMonthYear(date: string) {
-  const [, month, year] = date.split(".");
-  const monthIndex = Number(month) - 1;
-  const label = MONTH_LABELS[monthIndex] ?? month;
-  return `${label} ${year}`;
+function LocationPin() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      className="shrink-0 text-gha-primary"
+    >
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" />
+    </svg>
+  );
 }
 
-function NewsCard({ item }: { item: NewsEventItem }) {
+function SliderArrow({
+  direction,
+  onClick,
+  disabled,
+}: {
+  direction: "prev" | "next";
+  onClick: () => void;
+  disabled: boolean;
+}) {
   return (
-    <article className="flex h-full min-w-0 flex-col overflow-clip rounded-xl bg-utility-bg">
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={direction === "prev" ? "Previous news" : "Next news"}
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#e07a2f] text-white transition-opacity hover:bg-[#d06c24] disabled:cursor-not-allowed disabled:opacity-35 sm:h-12 sm:w-12"
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+        fill="none"
+        aria-hidden="true"
+        className={direction === "prev" ? "rotate-180" : undefined}
+      >
+        <path
+          d="M6.5 3.5L12 9l-5.5 5.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
+  );
+}
+
+function FeaturedNewsCard({ item }: { item: NewsEventItem }) {
+  return (
+    <article className="flex h-full min-w-0 overflow-hidden bg-utility-bg">
       <Link
         href={item.href}
-        className="group relative z-[1] -mb-px block aspect-[4/3] w-full overflow-clip leading-none outline-none focus-visible:outline-none"
+        className="relative hidden w-[42%] shrink-0 self-stretch overflow-hidden sm:block"
       >
         {item.image && (
-          <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.03]">
+          <Image
+            src={item.image}
+            alt={item.imageAlt ?? item.title}
+            fill
+            className="object-cover transition-transform duration-700 hover:scale-[1.03]"
+            sizes="(max-width: 1024px) 40vw, 280px"
+          />
+        )}
+      </Link>
+
+      <div className="flex min-w-0 flex-1 flex-col justify-center p-5 sm:p-6 lg:p-7">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[12px] text-[#3a3a3a]/75">
+          <time dateTime={item.date.split(".").reverse().join("-")}>
+            {formatNewsDisplayDate(item.date)}
+          </time>
+          {item.location && (
+            <span className="inline-flex items-center gap-1.5">
+              <LocationPin />
+              {item.location}
+            </span>
+          )}
+        </div>
+
+        {/* Mobile image */}
+        <Link
+          href={item.href}
+          className="relative mt-4 block aspect-[16/10] overflow-hidden sm:hidden"
+        >
+          {item.image && (
             <Image
               src={item.image}
               alt={item.imageAlt ?? item.title}
               fill
-              className="!top-1/2 !left-1/2 !h-[112%] !w-[112%] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover"
-              sizes="(max-width: 768px) 100vw, 380px"
+              className="object-cover"
+              sizes="(max-width: 639px) calc(100vw - 3rem), 0px"
             />
-          </div>
-        )}
-      </Link>
-
-      <div className="relative flex flex-1 flex-col justify-between bg-utility-bg p-5 lg:p-6">
-        <Link
-          href={item.href}
-          className="group outline-none focus-visible:outline-none"
-        >
-          <h3 className="text-lg font-bold leading-snug tracking-tight text-foreground transition-colors group-hover:text-gha-primary lg:text-xl">
-            {item.title}
-          </h3>
+          )}
         </Link>
 
-        <div className="mt-5 flex items-center justify-end gap-3">
-          <time
-            dateTime={item.date.split(".").reverse().join("-")}
-            className="shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-[0.12em] text-foreground uppercase"
-          >
-            {formatMonthYear(item.date)}
-          </time>
-        </div>
+        <h3 className="mt-4 text-lg font-bold leading-snug tracking-tight text-[#1a2f5c] sm:mt-5 sm:text-xl lg:text-[1.35rem] lg:leading-[1.25]">
+          <Link href={item.href} className="transition-colors hover:text-gha-primary">
+            {item.title}
+          </Link>
+        </h3>
+
+        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-[#3a3a3a]/85 sm:text-[15px]">
+          {item.excerpt}
+        </p>
       </div>
     </article>
   );
 }
 
 export function NewsEvents() {
+  const items = newsPageItems;
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const updateArrows = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setCanPrev(el.scrollLeft > 8);
+    setCanNext(el.scrollLeft < max - 8);
+  };
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    updateArrows();
+    el.addEventListener("scroll", updateArrows, { passive: true });
+    window.addEventListener("resize", updateArrows);
+    return () => {
+      el.removeEventListener("scroll", updateArrows);
+      window.removeEventListener("resize", updateArrows);
+    };
+  }, []);
+
+  const scrollByCard = (direction: "prev" | "next") => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const amount = Math.min(el.clientWidth * 0.85, 560);
+    el.scrollBy({
+      left: direction === "next" ? amount : -amount,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section
-      className="bg-gradient-to-b from-gha-primary via-[#35599a] to-[#7d8fa8] py-16 text-white lg:py-20"
+      className="overflow-hidden bg-white py-16 text-foreground lg:py-20"
       aria-labelledby="news-events-heading"
     >
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-6 gap-y-5">
-          <div className="max-w-2xl">
-            <p className="text-sm font-medium tracking-[0.14em] text-white/80 uppercase">
-              News &amp; updates
-            </p>
-            <h2
-              id="news-events-heading"
-              className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.12]"
-            >
-              The latest from GHA
-            </h2>
-          </div>
+      <div className="mx-auto max-w-[1200px] px-6 text-center lg:px-8">
+        <span className="inline-flex items-center rounded-full bg-[#e07a2f] px-3.5 py-1.5 text-[12px] font-semibold tracking-wide text-white">
+          What&apos;s new?
+        </span>
+        <h2
+          id="news-events-heading"
+          className="type-h2 mt-4 text-[#1a2f5c]"
+        >
+          Featured news
+        </h2>
+      </div>
 
-          <Link
-            href="/latest/news"
-            className="ml-auto inline-flex shrink-0 items-center gap-5 rounded-xl border border-white/50 bg-white px-5 py-3.5 text-foreground transition-colors hover:border-gha-primary hover:bg-gha-primary hover:text-white active:border-gha-primary-hover active:bg-gha-primary-hover sm:gap-6 sm:px-6 sm:py-4"
-          >
-            <span className="text-[11px] font-bold tracking-[0.14em] uppercase sm:text-xs">
-              Explore news &amp; updates
-            </span>
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              fill="none"
-              className="shrink-0"
-              aria-hidden="true"
+      <div className="relative mt-10 lg:mt-12">
+        {/* Edge fades like Farm Africa peeking cards */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-white to-transparent sm:w-10 lg:w-16"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-white to-transparent sm:w-10 lg:w-16"
+          aria-hidden="true"
+        />
+
+        <div
+          ref={scrollerRef}
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-[max(1.5rem,calc((100vw-1100px)/2+1.5rem))] pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-5 lg:gap-6 [&::-webkit-scrollbar]:hidden"
+        >
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="w-[min(100%,520px)] shrink-0 snap-center sm:w-[min(85vw,560px)] lg:w-[min(48vw,540px)]"
             >
-              <path
-                d="M4.5 13.5L13.5 4.5M13.5 4.5H6.75M13.5 4.5V11.25"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
+              <FeaturedNewsCard item={item} />
+            </div>
+          ))}
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:mt-12 lg:gap-5">
-          {newsItems.map((item) => (
-            <NewsCard key={item.id} item={item} />
-          ))}
+        {/* Farm Africa–style arrows between / over the track */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 right-0 z-20 flex items-center justify-between px-3 sm:px-5 lg:px-8">
+          <div className="pointer-events-auto">
+            <SliderArrow
+              direction="prev"
+              onClick={() => scrollByCard("prev")}
+              disabled={!canPrev}
+            />
+          </div>
+          <div className="pointer-events-auto">
+            <SliderArrow
+              direction="next"
+              onClick={() => scrollByCard("next")}
+              disabled={!canNext}
+            />
+          </div>
+        </div>
+
+        <div className="mt-10 flex justify-center sm:mt-12">
+          <Link
+            href="/latest/news"
+            className="text-sm font-bold text-gha-primary transition-colors hover:text-gha-primary-hover"
+          >
+            Browse all news →
+          </Link>
         </div>
       </div>
     </section>

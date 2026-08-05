@@ -131,7 +131,7 @@ export default function DesignSystemPage() {
           <p className="text-sm font-semibold tracking-[0.14em] text-gha-primary uppercase">
             Brand foundations
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+          <h1 className="type-h1 text-balance">
             Global Health Alliance Design System
           </h1>
           <p className="text-lg leading-relaxed text-gha-muted text-pretty">

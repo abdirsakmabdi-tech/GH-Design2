@@ -14,7 +14,7 @@ export default function AboutPage() {
       {/* Hero — HIAS-style: title, lede, full-bleed image */}
       <header className="bg-gha-surface">
         <div className="mx-auto max-w-[1100px] px-6 pt-14 pb-10 lg:px-8 lg:pt-20 lg:pb-12">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-[3.5rem] lg:leading-[1.08]">
+          <h1 className="type-h1 text-balance">
             Who We Are
           </h1>
           <p className="mt-4 max-w-3xl text-lg leading-relaxed text-gha-muted sm:text-xl">
@@ -38,7 +38,7 @@ export default function AboutPage() {
       {/* Mission */}
       <section className="border-t border-gha-border bg-gha-surface">
         <div className="mx-auto max-w-[800px] px-6 py-16 lg:px-8 lg:py-20">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="type-h2">
             Our Mission
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-gha-muted">
@@ -55,7 +55,7 @@ export default function AboutPage() {
       {/* Vision */}
       <section className="border-t border-gha-border bg-background">
         <div className="mx-auto max-w-[800px] px-6 py-16 lg:px-8 lg:py-20">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="type-h2">
             Our Vision
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-gha-muted">
@@ -70,7 +70,7 @@ export default function AboutPage() {
       {/* History (HIAS pattern) */}
       <section className="border-t border-gha-border bg-gha-surface">
         <div className="mx-auto max-w-[800px] px-6 py-16 lg:px-8 lg:py-20">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="type-h2">
             Our History
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-gha-muted">
@@ -93,7 +93,7 @@ export default function AboutPage() {
       {/* Our Work — two panels like HIAS */}
       <section className="border-t border-gha-border bg-background">
         <div className="mx-auto max-w-[1100px] px-6 py-16 lg:px-8 lg:py-20">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="type-h2">
             Our Work
           </h2>
 
@@ -161,7 +161,7 @@ export default function AboutPage() {
       {/* CTA band */}
       <section className="bg-gha-primary text-white">
         <div className="mx-auto max-w-[800px] px-6 py-16 text-center lg:px-8 lg:py-20">
-          <h2 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          <h2 className="type-h2 text-balance">
             Together, we can help create a world in which healthcare is
             accessible to all.
           </h2>

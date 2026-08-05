@@ -91,7 +91,7 @@ export function LeadershipSlider() {
             </p>
             <h2
               id="leadership-heading"
-              className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.12]"
+              className="type-h2 mt-2 text-foreground"
             >
               Our Leadership
             </h2>

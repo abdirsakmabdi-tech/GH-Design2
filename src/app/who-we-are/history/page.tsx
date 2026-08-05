@@ -171,7 +171,7 @@ function FounderStoriesMasonry() {
   return (
     <section className="border-b border-gha-border bg-background py-16 lg:py-20">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-black tracking-tight sm:text-4xl">
+        <h2 className="type-h2 text-center">
           Founder Stories
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-lg font-normal text-gha-muted lg:text-base">
@@ -274,7 +274,7 @@ export default function HistoryPage() {
               <PulseIcon />
             </div>
 
-            <h1 className="mt-4 text-4xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.5rem]">
+            <h1 className="type-h1 mt-4 text-white">
               Our History
               <span className="mt-1 block text-[0.92em]">
                 From Local Roots to Global Reach
@@ -299,7 +299,7 @@ export default function HistoryPage() {
       {/* About / Our Story — Infinity About Us block */}
       <section className="border-b border-gha-border bg-gha-surface">
         <div className="mx-auto max-w-[900px] px-6 py-20 text-center lg:px-8 lg:py-24">
-          <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
+          <h2 className="type-h2">
             About Our History
           </h2>
           <p className="mx-auto mt-8 max-w-3xl text-lg leading-relaxed text-gha-muted lg:text-base">
@@ -335,7 +335,7 @@ export default function HistoryPage() {
         <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
           <div className="overflow-hidden rounded-[2.5rem] bg-white shadow-[0_20px_60px_rgba(61,96,164,0.08)] lg:grid lg:grid-cols-2 lg:items-center">
             <div className="px-8 py-12 lg:px-14 lg:py-16">
-              <h2 className="text-3xl font-black leading-tight tracking-tight text-foreground sm:text-4xl">
+              <h2 className="type-h2 text-foreground">
                 Where our journey began with community health initiatives in
                 Minneapolis
               </h2>
@@ -381,7 +381,7 @@ export default function HistoryPage() {
         <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
           <div className="overflow-hidden rounded-[2.5rem] bg-white shadow-[0_20px_60px_rgba(61,96,164,0.08)] lg:grid lg:grid-cols-2 lg:items-center">
             <div className="px-8 py-12 lg:px-14 lg:py-16">
-              <h2 className="text-3xl font-black leading-tight tracking-tight text-foreground sm:text-4xl">
+              <h2 className="type-h2 text-foreground">
                 Bridging Local and Global
               </h2>
 
@@ -456,7 +456,7 @@ export default function HistoryPage() {
       {/* Impact detail — KAÏDO-style two-column comparison */}
       <section className="border-t border-gha-border bg-white py-16 lg:py-24">
         <div className="mx-auto max-w-[1100px] px-6 lg:px-8">
-          <h2 className="mx-auto max-w-3xl text-center text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+          <h2 className="type-h2 mx-auto max-w-3xl text-center text-balance text-foreground">
             Where GHA excels.
             <span className="mt-1 block">Where the need remains.</span>
           </h2>

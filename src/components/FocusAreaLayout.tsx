@@ -14,7 +14,7 @@ export function FocusAreaLayout({ area }: { area: FocusArea }) {
           <p className="text-sm font-semibold tracking-[0.14em] text-gha-secondary uppercase">
             What We Do
           </p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-[3.5rem] lg:leading-[1.08]">
+          <h1 className="type-h1 mt-3 text-balance">
             {area.title}
           </h1>
           <p className="mt-4 max-w-3xl text-lg leading-relaxed text-gha-muted sm:text-xl">
@@ -61,7 +61,7 @@ export function FocusAreaLayout({ area }: { area: FocusArea }) {
       {/* More focus areas */}
       <section className="border-t border-gha-border bg-background">
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8 lg:py-20">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          <h2 className="type-h2">
             More Focus Areas
           </h2>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

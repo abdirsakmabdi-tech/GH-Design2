@@ -16,7 +16,7 @@ const panels = [
     id: "usa",
     headline: "USA",
     cta: "Explore our work",
-    href: "/gha-in-action/global-initiatives",
+    href: "/gha-in-action/usa",
     image: "/who-we-are/history/uofm-training.png",
     imageAlt:
       "GHA training participants at the University of Minnesota in the USA",
@@ -33,11 +33,11 @@ export function PurposePanels() {
       <div className="mx-auto mb-8 max-w-2xl px-6 text-center sm:mb-10 lg:px-8">
         <h2
           id="global-work-heading"
-          className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+          className="type-h2 text-foreground"
         >
           Our Global Work
         </h2>
-        <p className="mt-5 text-base leading-relaxed text-gha-muted sm:text-lg">
+        <p className="type-lead mt-5">
           From community programs in Minnesota to hospital partnerships in
           Somalia, GHA brings care, training, and resources to the places where
           they are needed most.
@@ -65,7 +65,7 @@ export function PurposePanels() {
             />
 
             <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 lg:p-10">
-              <h2 className="max-w-[14ch] text-3xl font-bold tracking-tight text-white text-balance drop-shadow-[0_2px_14px_rgba(0,0,0,0.45)] sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]">
+              <h2 className="type-h2 max-w-[14ch] text-balance text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.45)]">
                 {panel.headline}
               </h2>
 

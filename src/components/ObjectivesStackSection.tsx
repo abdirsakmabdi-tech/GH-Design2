@@ -72,11 +72,11 @@ function IntroCard() {
         </p>
         <h2
           id="objectives-stack-heading"
-          className="mt-2.5 text-xl font-bold tracking-tight text-balance text-white lg:text-2xl"
+          className="type-h3 mt-2.5 text-balance text-white"
         >
           Organizational objectives
         </h2>
-        <p className="mt-3 text-xs leading-relaxed text-white/55 lg:text-sm">
+        <p className="type-small mt-3 text-white/55">
           Five priorities that guide how we strengthen systems, expand access,
           and build lasting health impact.
         </p>
